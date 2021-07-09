@@ -1,8 +1,10 @@
 // any
-let anything;
+let anything: any;
 
 anything = 5;
 anything = "text";
+
+// use unknown instead
 
 // never (this type is rare)
 function batman() {
@@ -25,11 +27,11 @@ function atCrossroads(msg: string) {
 
 // null, undefined
 // strict null checks (union)
-let discount = "10";
+let discount: string | null = "10";
 
 function clearDiscount() {
   // how do we fix this assignment?
-  // discount = null;
+  discount = null;
 }
 
 // literals
@@ -47,7 +49,7 @@ function selectColor(col: "red" | "green" | "blue") {
   color = col;
 }
 
-// selectColor("gren");
+selectColor("green");
 
 console.log(`SelectingColor results in ${color}`);
 
@@ -58,6 +60,6 @@ function setPodiumPosition(p: 1 | 2 | 3) {
   podiumPlace = p;
 }
 
-// setPodiumPosition(0);
+setPodiumPosition(3);
 
 console.log(`SettingPodiumPosition results in ${color}`);

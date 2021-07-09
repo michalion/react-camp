@@ -23,11 +23,23 @@ post = createBlogPost({ fontSize: 18, text: "foo" }, "bar");
  */
 
 // interface reuse
-interface PromotedBlogPost {
+interface PromotedBlogPost extends BlogPost {
   calculatePrice(): number;
   // optional property
-  // adCampaign: string
+  adCampaign?: string;
 }
+
+let promotedPost: PromotedBlogPost = {
+  header: { fontSize: 18, text: "New Product !!!oneone" },
+  body: "fancy text, buy my product",
+  calculatePrice: () => 10,
+};
+
+let dictionary = {
+  a: "foo",
+  b: "bar",
+  c: "baz",
+};
 
 // index signature (danger!)
 interface FeatureFlags {

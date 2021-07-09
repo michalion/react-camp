@@ -24,6 +24,8 @@ const header: Header = { text: "Hello World!", fontSize: 18 };
 const x = JSON.stringify(header);
 
 // how can we type this function
-function getFontSize(json: string) {
-  return JSON.parse(json); // diamond / as
+function getFontSize(stringifedHeader: string) {
+  return (JSON.parse(stringifedHeader) as Header).fontSize; // diamond / as
 }
+
+const fontSize: Header["fontSize"] = getFontSize(x);

@@ -21,8 +21,10 @@ let secondString: string = "text2";
 let secondBoolean: boolean = false;
 
 // what type information gives us?
-// console.log(firstNumber.toUpperCase());
-// console.log(firstString.toUpperCase());
+console.log(firstNumber.toExponential());
+console.log(firstString.toUpperCase());
+
+// secondString.includes();
 
 if (firstBoolean) {
   console.log("if executed!");

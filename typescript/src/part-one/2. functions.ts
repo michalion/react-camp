@@ -3,10 +3,10 @@
  */
 
 // The following function declaration is flagged by TS
-// function foo(a,b) {}
+// function uniqueNameOfTheFunction(a,b) {}
 
 // what's the return type of this function?
-function repeatNTimes(text: string, times: number) {
+function repeatNTimes(text: string, times: number): string {
   return new Array(times).fill(text).join(" ");
 }
 
@@ -23,23 +23,27 @@ console.log("Sum Numbers result:", sumNumbers(1, 1));
 const arrowFunc = (arg: boolean): string => (arg ? "yes" : "no");
 
 // how can this function signature be separated from assignment?
-let anotherArrowFunc;
 
-// anotherArrowFunc = (arg) => (arg ? "yes" : "no");
+let anotherArrowFunc: (x: boolean) => string;
+anotherArrowFunc = (arg) => (arg ? "yes" : "no");
 
 // optional params: arg here is not mandatory
-let optionalArrowFunc;
+let optionalArrowFunc: (arg?: boolean) => string;
 
-// optionalArrowFunc = (arg) => (arg ? "yes" : "no");
+optionalArrowFunc = (arg) => (arg ? "yes" : "no");
 
-// console.log(`Optional Arrow Func ${optionalArrowFunc()}`)
+console.log(`Optional Arrow Func ${optionalArrowFunc()}`);
 
 // default args in function
-function multiply(x: number, y: number) {
+function multiply(x: number, y = 1) {
   return x * y;
 }
 
 console.log(`Multiply 2x2=${multiply(2, 2)}`);
 
 // let's assume that y is 1 if not provided
-// console.log(`Multiply 2x1=${multiply(2)}`);
+console.log(`Multiply 2x1=${multiply(2)}`);
+
+type MultiplyWithDefault = (x: number, y?: number) => number;
+
+const anotherMultiply: MultiplyWithDefault = (x, y = 1) => x * y;
