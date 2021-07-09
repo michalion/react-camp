@@ -7,12 +7,14 @@
  */
 
 // We had previously a typedDog! how can we reuse it?
-interface ReadonlyTypedDog {
-  readonly name: string;
-}
+type MyReadonly<Type> = {
+  readonly [P in keyof Type]: Type[P];
+};
+
+const superUniqeDog: Readonly<TypedDog> = typedDog;
 
 // what happens if we remove return type?
-const freezeDog = (dog: TypedDog): ReadonlyTypedDog => {
+const freezeDog = <T>(dog: T) => {
   return Object.freeze(dog);
 };
 
@@ -33,29 +35,37 @@ const frozenPet = freezeDog({ ...pepe });
  * operate on a subset of data
  */
 // how can we make it better?
-interface PartialDog {
-  goodDog?: boolean;
-  name?: string;
-  emoji?: string;
-  age?: number;
-}
+type MyPartial<Type> = {
+  [Property in keyof Type]+?: Type[Property];
+};
 
-const updateDog = (dog: TypedDog, update: PartialDog): TypedDog => ({
-  ...dog,
+const updateObject = <T>(obj: T, update: Partial<T>): T => ({
+  ...obj,
   ...update,
 });
 
-const afterDinnerDog = updateDog(pepe, { goodDog: true });
+const afterDinnerDog = updateObject(pepe, { goodDog: true });
 
 /**
  * Required
  */
 
 // let's imagine that we need actual value of an optional property
-const petTheDog = (dog: TypedDog) => {
-  if (dog.goodDog) {
-    console.log(`Good ${dog.name}!`);
-  } else {
-    console.log(`Bad dog!`);
-  }
+
+type HeaderType = {
+  text: string;
+  fontSize?: number;
 };
+
+type MyRequired<Type> = {
+  [Property in keyof Type]-?: Type[Property];
+};
+
+const HeaderWithCustomProps = (props: Required<HeaderType>) => {
+  if (typeof props.fontSize === "undefined")
+    throw new Error("no fontSize specified");
+
+  return props.text;
+};
+
+HeaderWithCustomProps({ text: "foo", fontSize: 18 });

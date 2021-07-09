@@ -47,3 +47,41 @@ console.log(`Multiply 2x1=${multiply(2)}`);
 type MultiplyWithDefault = (x: number, y?: number) => number;
 
 const anotherMultiply: MultiplyWithDefault = (x, y = 1) => x * y;
+
+// func overload
+function reverse<T>(arg: T[]): T[];
+function reverse(arg: string): string;
+
+function reverse(arg: string | any[]) {
+  if (Array.isArray(arg)) {
+    return arg.reverse();
+  }
+
+  return arg.split("").reverse().join("");
+}
+
+const reversedString = reverse("ABCD");
+const reversedArray = reverse([1, 2, 3, 4]);
+
+console.log("Reversed string", reversedString);
+console.log("Reversed array", reversedArray);
+
+console.log("Typeof 1", {}, typeof {});
+console.log("Typeof 2", [], typeof []);
+console.log("Typeof 3", "string", typeof "string");
+console.log("Typeof 4", 4, typeof 4);
+console.log("Typeof 5", undefined, typeof undefined);
+console.log("Typeof 6", null, typeof null);
+
+// typeof guard
+function toUpperCase(arg: string | number) {
+  // to check eslint-rule
+  if (typeof arg === "string") {
+    return arg.toUpperCase();
+  }
+  return arg;
+}
+
+console.log("to upper", toUpperCase("text"));
+console.log("to upper", toUpperCase(2));
+``;

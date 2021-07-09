@@ -16,7 +16,6 @@ const typedDog = {
 };
 
 // deriving type from actual object
-type TypedDog = typeof typedDog;
 
 // const anotherTypedDog: TypedDog = {}
 
@@ -26,7 +25,28 @@ type TypedDog = typeof typedDog;
  */
 
 // how can we make this function type-safe, while accessing properties?
+type TypedDog = typeof typedDog;
+type Wolf = TypedDog & { isWolf: boolean };
 
-// const extractValue = (d: TypedDog, key: string) => d[key];
+type TypedDogKeys = keyof TypedDog;
+type TypedDogValues = TypedDog[TypedDogKeys];
 
-// const dogName = extractValue(typedDog, "name");
+const extractValue = <Type, Key extends keyof Type>(obj: Type, key: Key) =>
+  obj[key];
+
+const dogName = extractValue(typedDog, "name");
+
+function userCanPetTheDog(animal: TypedDog | Wolf) {
+  if (isWolf(animal)) {
+    console.log("This is a WOLF!", animal.isWolf);
+    return false;
+  }
+
+  console.log("This is a 🐕!", animal.name);
+  return true;
+}
+
+// User defined type guard
+function isWolf(animal: any): animal is Wolf {
+  return animal.isWolf;
+}
