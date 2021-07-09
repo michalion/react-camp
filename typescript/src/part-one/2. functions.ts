@@ -6,9 +6,11 @@
 // function uniqueNameOfTheFunction(a,b) {}
 
 // what's the return type of this function?
-function repeatNTimes(text: string, times: number): string {
+type RepeatText = (text: string, times: number) => string;
+
+const repeatNTimes: RepeatText = (text, times) => {
   return new Array(times).fill(text).join(" ");
-}
+};
 
 console.log("Repeat result:", repeatNTimes("Foo", 3));
 
